@@ -38,3 +38,17 @@ In the script section of package.json , put:
 "start": "nodemon --exec npm run babel-node --  ./bin/www",
 "babel-node": "babel-node"
 ```
+
+to start our app with Babel Node instead of the regular Node.js runtime so that we get the latest JavaScript features.
+
+Then we create a file called ```.babelrc``` in the ```backend``` folder and add:
+
+```javascript
+{
+    "presets": [
+        "@babel/preset-env"
+    ]
+}
+```
+
+to enable the latest features.
