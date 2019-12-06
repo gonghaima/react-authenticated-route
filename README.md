@@ -54,3 +54,24 @@ Then we create a file called ```.babelrc``` in the ```backend``` folder and add:
 to enable the latest features.
 
 Then we have to add Sequelize code by running ```npx sequelize-cli init``` . After that we should get a ```config.json``` file in the config folder.
+
+In config.json , we put:
+
+```javascript
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "development.db"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "test.db"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "production.db"
+  }
+}
+```
+
+To use SQLite as our database.
