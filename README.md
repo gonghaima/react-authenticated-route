@@ -52,3 +52,5 @@ Then we create a file called ```.babelrc``` in the ```backend``` folder and add:
 ```
 
 to enable the latest features.
+
+Then we have to add Sequelize code by running ```npx sequelize-cli init``` . After that we should get a ```config.json``` file in the config folder.
