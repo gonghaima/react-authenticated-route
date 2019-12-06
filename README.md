@@ -75,3 +75,26 @@ In config.json , we put:
 ```
 
 To use SQLite as our database.
+
+Next we add a ```middleware``` for verifying the authentication token, add a middllewares folder in the backend folder, and in there add ```authCheck.js``` . In the file, add:
+
+```javascript
+const jwt = require("jsonwebtoken");
+const secret = process.env.JWT_SECRET;
+export const authCheck = (req, res, next) => {
+  if (req.headers.authorization) {
+    const token = req.headers.authorization;
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        res.send(401);
+      } else {
+        next();
+      }
+    });
+  } else {
+    res.send(401);
+  }
+};
+```
+
+We return 401 response if the token is invalid.
