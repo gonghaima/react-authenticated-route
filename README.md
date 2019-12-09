@@ -129,3 +129,11 @@ down: (queryInterface, Sequelize) => {
 ```
 
 Run ```npx sequelize-cli db:migrate``` to run all the migrations.
+
+Next we create the routes. Create a file called ```bitbucket.js``` and add:
+
+In each route, we get the user from the token, since we will add the user ID into the token, and from there we get the Bitbucket username and password, which we use to log into the Bitbucket API. Note that we have to decrypt the password since we encrypted it before saving it to the database.
+
+We set the Bitbucket credentials in the ```setBitbucketCredentials``` route. We encrypt the password before saving to keep it secure.
+
+Then in the ```repos``` route, we get the repos of the user and sort by reversed ```update_on``` order since we specified ```-updated_on``` in the ```sort``` parameter. The commits are listed in reverse date order since we specified ```-date``` in the ```sort``` parameter.
