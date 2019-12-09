@@ -98,3 +98,34 @@ export const authCheck = (req, res, next) => {
 ```
 
 We return 401 response if the token is invalid.
+
+Next we create some migrations and models. Run:
+
+```shell
+npx sequelize-cli model:create --name User --attributes username:string,password:string,bitBucketUsername:string,bitBucketPassword:string
+```
+
+to create the model. Note that the attributes option has no spaces.
+
+Then we add unique constraint to the ```username``` column of the Users table. To do this, run:
+
+```npx sequelize-cli migration:create addUniqueConstraintToUser```
+
+Then in newly created migration file, add:
+
+```javascript
+"use strict";
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.addConstraint("Users", ["username"], {
+      type: "unique",
+      name: "usernameUnique"
+    });
+  },
+down: (queryInterface, Sequelize) => {
+    return queryInterface.removeConstraint("Users", "usernameUnique");
+  }
+};
+```
+
+Run ```npx sequelize-cli db:migrate``` to run all the migrations.
