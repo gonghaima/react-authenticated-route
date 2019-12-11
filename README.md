@@ -234,4 +234,6 @@ app.use("/users", usersRouter);
 app.use("/bitbucket", bitbucketRouter);
 ```
 
+This finishes the back end portion of the app. Now we can build the front end. We will build it with React, so we start by running ```npx create-react-app frontend``` from the project’s root folder.
+
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
