@@ -236,4 +236,8 @@ app.use("/bitbucket", bitbucketRouter);
 
 This finishes the back end portion of the app. Now we can build the front end. We will build it with React, so we start by running ```npx create-react-app frontend``` from the project’s root folder.
 
+Next we have to install some packages. We will install Bootstrap for styling, React Router for routing, Formik and Yup for form value handling and form validation respectively and Axios for making HTTP requests.
+
+To do this run ```npm i axios bootstrap formik react-bootstrap react-router-dom yup``` to install all the packages.
+
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
