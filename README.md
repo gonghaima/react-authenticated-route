@@ -285,6 +285,16 @@ function App() {
 export default App;
 ```
 
-We add the routes for the pages in our app here. ```RequiredAuth``` is a higher order component which takes a component that requires authentication to access and return redirect if not authorized or the page if the user is authorized. We pass in the components that requires authentication in this route, like ```ReposPage``` , ```SettingsPage``` and ```CommitPage``` .
+We add the routes for the pages in our app here. ```RequiredAuth``` is a higher order component which takes a component that requires authentication to access and return redirect if not authorized or the page if the user is authorized. We pass in the components that requires authentication in this route, like ```ReposPage``` , ```SettingsPage``` and ```CommitPage```.
+
+In ```App.css``` , we replace the existing code with:
+
+```css
+.page {
+    padding: 20px;
+}
+```
+
+to add some padding.
 
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
