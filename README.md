@@ -240,4 +240,51 @@ Next we have to install some packages. We will install Bootstrap for styling, Re
 
 To do this run ```npm i axios bootstrap formik react-bootstrap react-router-dom yup``` to install all the packages.
 
+Next we modify the ```App.js``` folder by replacing the existing code with the following:
+
+```javascript
+import React from "react";
+import HomePage from "./HomePage";
+import "./App.css";
+import ReposPage from "./ReposPage";
+import CommitsPage from "./CommitsPage";
+import SettingsPage from "./SettingsPage";
+import { createBrowserHistory as createHistory } from "history";
+import { Router, Route } from "react-router-dom";
+import SignUpPage from "./SignUpPage";
+import RequireAuth from "./RequireAuth";
+const history = createHistory();
+function App() {
+  return (
+    <div className="App">
+      <Router history={history}>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/signup" exact component={SignUpPage} />
+        <Route
+          path="/settings"
+          component={props => (
+            <RequireAuth {...props} Component={SettingsPage} />
+          )}
+        />
+        <Route
+          path="/repos"
+          exact
+          component={props => <RequireAuth {...props} Component={ReposPage} />}
+        />
+        <Route
+          path="/commits/:repoName"
+          exact
+          component={props => (
+            <RequireAuth {...props} Component={CommitsPage} />
+          )}
+        />
+      </Router>
+    </div>
+  );
+}
+export default App;
+```
+
+We add the routes for the pages in our app here. ```RequiredAuth``` is a higher order component which takes a component that requires authentication to access and return redirect if not authorized or the page if the user is authorized. We pass in the components that requires authentication in this route, like ```ReposPage``` , ```SettingsPage``` and ```CommitPage``` .
+
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
