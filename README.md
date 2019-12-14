@@ -453,4 +453,54 @@ export default HomePage;
 
 We use the ```Formik``` component provided by Formik to get automatic form value handling. It will pipe the values directly to the parameter of the ```onSubmit``` handler. In the ```handleSubmit``` function, we run the ```schema.validate``` function to check for validity of the form values according to the ```schema``` object generated from the Yup library and if that’s successful, then we call ```login``` from the ```requests.js``` file which we will create.
 
+Next we create the top bar. Create ```LoggedInTopBar.js``` in the ```src``` folder and add:
+
+```javascript
+import React, { useState } from "react";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import { withRouter, Redirect } from "react-router-dom";
+function LoggedInTopBar({ location }) {
+  const [redirect, setRedirect] = useState(false);
+  const { pathname } = location;
+  const isLoggedIn = () => !!localStorage.getItem("token");
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+  return (
+    <div>
+      {isLoggedIn() ? (
+        <Navbar bg="primary" expand="lg" variant="dark">
+          <Navbar.Brand href="#home">Bitbucket App</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="/settings" active={pathname == "/settings"}>
+                Settings
+              </Nav.Link>
+              <Nav.Link href="/repos" active={pathname == "/repos"}>
+                Repos
+              </Nav.Link>
+              <Nav.Link>
+                <span
+                  onClick={() => {
+                    localStorage.clear();
+                    setRedirect(true);
+                  }}
+                >
+                  Log Out
+                </span>
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      ) : null}
+    </div>
+  );
+}
+export default withRouter(LoggedInTopBar);
+```
+
+This contains the React Bootstrap ```Navbar``` to show a top bar with a link to the home page and the name of the app. We only display it with the ```token``` present in local storage. We check the ```pathname``` to highlight the right links by setting the ```active``` prop.
+
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
