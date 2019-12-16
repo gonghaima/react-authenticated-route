@@ -572,4 +572,72 @@ export default ReposPage;
 
 We get the list repositories and we add pagination to get more repositories.
 
+In ```requests.js``` , we add:
+
+```javascript
+const axios = require("axios");
+const APIURL = "http://localhost:3000";
+axios.interceptors.request.use(
+  config => {
+    config.headers.authorization = localStorage.getItem("token");
+    return config;
+  },
+  error => Promise.reject(error)
+);
+axios.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response.status == 401) {
+      localStorage.clear();
+    }
+    return error;
+  }
+);
+export const signUp = data => axios.post(`${APIURL}/users/signup`, data);
+export const logIn = data => axios.post(`${APIURL}/users/login`, data);
+export const changePassword = data =>
+  axios.post(`${APIURL}/users/changePassword`, data);
+export const currentUser = () => axios.get(`${APIURL}/users/currentUser`);
+export const setBitbucketCredentials = data =>
+  axios.post(`${APIURL}/bitbucket/setBitbucketCredentials`, data);
+export const repos = page =>
+  axios.get(`${APIURL}/bitbucket/repos/${page || 1}`);
+export const commits = (repoName) =>
+  axios.get(`${APIURL}/bitbucket/commits/${repoName}`);
+  ```
+
+  This file has all the HTTP requests that we make for sign up, log in, set credentials, get repositories and commits, etc.
+
+  And for handling responses, if we get 401 responses then we clear local storage so we won’t be using an invalid token. The code is below:
+
+```javascript
+axios.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response.status == 401) {
+      localStorage.clear();
+    }
+    return error;
+  }
+);
+```
+
+We attach the token to the request headers with:
+
+```javascript
+axios.interceptors.request.use(
+  config => {
+    config.headers.authorization = localStorage.getItem("token");
+    return config;
+  },
+  error => Promise.reject(error)
+);
+```
+
+so we don’t have to set it for each authenticated requests.
+
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
