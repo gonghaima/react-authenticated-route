@@ -654,6 +654,7 @@ function RequireAuth({ Component }) {
 export default RequireAuth;
 ```
 
+We check for presence of the token in the authenticated routes and render the Component prop passed in if the token is present.
 
 
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
