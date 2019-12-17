@@ -640,4 +640,20 @@ axios.interceptors.request.use(
 
 so we don’t have to set it for each authenticated requests.
 
+Next create a file called ```RequiredAuth.js``` in the ```src``` folder and add:
+
+```javascript
+import React from "react";
+import { Redirect } from "react-router-dom";
+function RequireAuth({ Component }) {
+  if (!localStorage.getItem("token")) {
+    return <Redirect to="/" />;
+  }
+  return <Component />;
+}
+export default RequireAuth;
+```
+
+
+
 [REF](https://medium.com/javascript-in-plain-english/how-to-add-authenticated-routes-to-your-react-app-f496ff266533)
