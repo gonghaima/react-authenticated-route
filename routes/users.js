@@ -1,5 +1,5 @@
 const express = require("express");
-const models = require("../models");
+const models = require("../mdels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 import { authCheck } from "../middlewares/authCheck";
