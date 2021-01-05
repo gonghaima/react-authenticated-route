@@ -11,7 +11,7 @@
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.7",
     "bitbucket": "^1.16.0",
     "bootstrap": "^4.4.1",
